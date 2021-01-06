@@ -35,20 +35,17 @@
         </div>
       </div>
     </div>
-    <div class='ui bottom attached green basic button' v-show="!isEditing && todo.done" disabled>
-        Completed
-    </div>
-    <div v-on:click="completeTodo(todo)" class='ui bottom attached red basic button' v-show="!isEditing && !todo.done">
-        Pending
+
+    <div v-on:click="completeTodo(todo)" :class="classStatusColor" class='ui bottom attached basic button' v-show="!isEditing">
+        {{ statusText }}
     </div>
   </div>
 </template>
 
-
 <script type="text/javascript">
-  export default {
-    props: ['todo'],
-      data() {
+export default {
+  props: ['todo'],
+  data() {
     return {
       isEditing: false,
     };
@@ -67,5 +64,13 @@
       this.$emit('complete-todo', todo);
     },
   },
-  };
+  computed: {
+    statusText() {
+      return this.todo.done ? 'Completed' : 'Pending'
+    },
+    classStatusColor() {
+      return this.todo.done ? 'green' : 'red'
+    },
+  }
+};
 </script>
