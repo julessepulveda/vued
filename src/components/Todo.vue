@@ -8,12 +8,12 @@
       <div class='meta'>
           {{ todo.project }}
       </div>
-      <div class='extra content'>
+      <div class='extra content todo-action-buttons'>
         <span class='right floated edit icon' v-on:click="showForm">
           <i class='edit icon'></i>
         </span>
         <span class='right floated trash icon' v-on:click="deleteTodo(todo)">
-          <i class='trash icon'></i>
+          <i class='trash red icon'></i>
         </span>
       </div>
     </div>
@@ -25,18 +25,16 @@
           <input type='text' v-model="todo.title" >
         </div>
         <div class='field'>
-          <label>Project</label>
+          <label>Description</label>
           <input type='text' v-model="todo.project" >
         </div>
-        <div class='ui two button attached buttons'>
-          <button class='ui basic blue button' v-on:click="hideForm">
-            Close X
-          </button>
-        </div>
+        <button class='ui primary button' v-on:click="hideForm">
+          Save
+        </button>
       </div>
     </div>
 
-    <div v-on:click="completeTodo(todo)" :class="classStatusColor" class='ui bottom attached basic button' v-show="!isEditing">
+    <div v-on:click="completeTodo(todo)" :class="classStatusColor" class='ui bottom attached button' v-show="!isEditing">
         {{ statusText }}
     </div>
   </div>
@@ -69,7 +67,7 @@ export default {
       return this.todo.done ? 'Completed' : 'Pending'
     },
     classStatusColor() {
-      return this.todo.done ? 'green' : 'red'
+      return this.todo.done ? 'green' : ''
     },
   }
 };
